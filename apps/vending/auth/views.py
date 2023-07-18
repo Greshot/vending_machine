@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.request import Request
@@ -6,7 +7,7 @@ from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
 from apps.vending.auth.validators import RegistrationValidator
 
@@ -17,13 +18,26 @@ class RegisterUser(APIView):
         validator.is_valid(raise_exception=True)
         request_dto = validator.build_dto()
 
-        User.objects.create_user(
-            username=request_dto.username, 
-            email=request_dto.email, 
-            password=request_dto.password, 
-            first_name=request_dto.first_name, 
-            last_name=request_dto.last_name
-        )
+        try:
+            User.objects.create_user(
+                username=request_dto.username, 
+                email=request_dto.email, 
+                password=request_dto.password, 
+                first_name=request_dto.first_name, 
+                last_name=request_dto.last_name
+            )
+        except IntegrityError as ex:
+            message = 'Something went wrong'
+            if 'UNIQUE constraint failed' in str(ex):
+                message = 'Username is already taken. Please use another one'
+
+            return Response(
+                data={
+                    "error": True, 
+                    "message": message
+                }, 
+                status=HTTP_400_BAD_REQUEST
+            )
         
         return Response(
             data={
