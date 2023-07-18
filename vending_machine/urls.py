@@ -29,9 +29,9 @@ urlpatterns = [
         path("", vending_views.VendingMachineSlotView.as_view()),
     ])),
     path("auth/", include([
-        path("register", RegisterUser.as_view()),
-        path("login", CustomAuthToken.as_view()),
-        path("logout", Logout.as_view()),
+        path("register/", RegisterUser.as_view()),
+        path("login/", CustomAuthToken.as_view()),
+        path("logout/", Logout.as_view()),
     ])),
     path("wallet/", vending_views.WalletView.as_view())
 ]
