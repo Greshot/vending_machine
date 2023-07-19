@@ -41,7 +41,9 @@ class WalletView(APIView):
         wallet.balance += request_dto.amount
         wallet.save()
 
-        return Response(status=HTTP_200_OK)
+        wallet_serializer = WalletSerializer(wallet)
+
+        return Response(status=HTTP_200_OK, data=wallet_serializer.data)
 
 
 class OrderView(APIView):

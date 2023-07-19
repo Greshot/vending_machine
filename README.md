@@ -101,10 +101,19 @@
     ]
   ```
 ### Get balance for your personal wallet:
-```bash
-  `curl --location 'http://localhost:8000/wallet' \
-  --header 'Authorization: Token e9cc3e99b8c009f0707e22d9a8336516f3d15450'
-```
+  Request:
+  ```bash
+    `curl --location 'http://localhost:8000/wallet' \
+    --header 'Authorization: Token e9cc3e99b8c009f0707e22d9a8336516f3d15450'
+  ```
+  Response:
+  ```
+    {
+        "id": "a563ae0a-dd34-42f0-9344-dc3e325f6c26",
+        "balance": "5.5",
+        "updated_at": "2023-07-19T16:53:35.081370Z"
+    }
+  ```
 ### Topping up your wallet's balance:
   Request:
   ```bash
@@ -116,7 +125,13 @@
     }'
   ```
   Response:
-  This will return a `200` status
+  ```
+    {
+        "id": "a563ae0a-dd34-42f0-9344-dc3e325f6c26",
+        "balance": "16.00",
+        "updated_at": "2023-07-19T18:53:35.081370Z"
+    }
+  ```
 ### Place an order:
   Request:
   ```bash
