@@ -33,5 +33,6 @@ urlpatterns = [
         path("login/", CustomAuthToken.as_view()),
         path("logout/", Logout.as_view()),
     ])),
-    path("wallet/", vending_views.WalletView.as_view())
+    path("wallet/", vending_views.WalletView.as_view()),
+    path("order/", vending_views.OrderView.as_view())
 ]

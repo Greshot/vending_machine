@@ -30,6 +30,9 @@ class VendingMachineSlot(models.Model):
     row = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
     column = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(1)])
 
+    def __str__(self):
+        return f"Product: {self.product.name}, quantity: {self.quantity}, row: {self.row}, column: {self.column}"
+
 class Wallet(models.Model):
     class Meta:
         db_table = "wallet"
