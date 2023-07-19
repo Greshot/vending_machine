@@ -1,6 +1,6 @@
 # Vending Machine
 
-![image](https://github.com/Greshot/vending_machine/assets/16230284/b816a8db-32d1-4faf-b805-a95e56a94727)
+![Vending Machine](docs/vending_machine.png)
 
 ## How to run the project:
 1. Install dependencies: `pip install -r requirements.txt`
@@ -15,7 +15,7 @@
 ## This app allows to:
 
 ### Manage slots, products, users and authentication via the Django Admin interface:
-![image](https://github.com/Greshot/vending_machine/assets/16230284/e390d27d-006c-45b6-a13a-adbe23202db7)
+![Admin interface](docs/admin_interface.png)
 ### Register new users:
   Request:
   ```bash
