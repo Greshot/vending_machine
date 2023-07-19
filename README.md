@@ -172,3 +172,4 @@
 - Define a more structured payload for success and error responses.
 - Provide seed data and command to set up the app for the first time.
 - Integrate formatter to Git hooks.
+- Expose OpenAPI documentation
