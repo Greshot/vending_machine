@@ -163,3 +163,12 @@
     }
   ```
 
+## Pending improvements:
+
+- Create separate app for Auth.
+- Use a more robust mechanism for auth: JWT, OAuth.
+- Create dedicated services and use cases for all operations.
+- Create missing unit and integration tests.
+- Define a more structured payload for success and error responses.
+- Provide seed data and command to set up the app for the first time.
+- Integrate formatter to Git hooks.
