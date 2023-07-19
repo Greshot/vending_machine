@@ -6,7 +6,6 @@ from apps.vending.tests.factories.user import UserFactory
 
 @pytest.mark.django_db
 class TestVendingMachineSlots:
-
     def test_list_slot_returns_expected_response(self, client, slots_grid):
         user = UserFactory()
         client.force_authenticate(user=user)

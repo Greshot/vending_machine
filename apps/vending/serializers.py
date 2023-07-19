@@ -1,9 +1,11 @@
 from rest_framework import serializers
 
+
 class ProductSerializer(serializers.Serializer):
     id = serializers.UUIDField()
     name = serializers.CharField()
     price = serializers.DecimalField(max_digits=4, decimal_places=2)
+
 
 class SlotSerializer(serializers.Serializer):
     id = serializers.UUIDField()
@@ -13,7 +15,8 @@ class SlotSerializer(serializers.Serializer):
 
     def get_coordinates(self, instance) -> list[int, int]:
         return [instance.column, instance.row]
-    
+
+
 class WalletSerializer(serializers.Serializer):
     id = serializers.UUIDField()
     balance = serializers.DecimalField(max_digits=10, decimal_places=2)

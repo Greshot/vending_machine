@@ -6,7 +6,6 @@ from apps.vending.validators import OrderItemDTO
 
 
 class ProcessOrder:
-
     def execute(self, order_items: list[OrderItemDTO], user: User):
         item_ids = []
         items_by_id = {}
@@ -16,28 +15,30 @@ class ProcessOrder:
 
         slots = VendingMachineSlot.objects.filter(id__in=item_ids)
         wallet = Wallet.objects.get(user=user)
-        
+
         errors = []
         try:
             with transaction.atomic():
                 order_price = 0
                 for slot in slots:
                     item_quantity = items_by_id[slot.id].quantity
-                    if(slot.quantity < item_quantity):
-                        errors.append(f"There are only {slot.quantity} {slot.product.name}, and you are trying to buy {item_quantity}")
+                    if slot.quantity < item_quantity:
+                        errors.append(
+                            f"There are only {slot.quantity} {slot.product.name}, and you are trying to buy {item_quantity}"
+                        )
                     else:
                         slot.quantity -= item_quantity
                         slot.save()
                         order_price += slot.product.price * item_quantity
 
-                if(wallet.balance < order_price):
+                if wallet.balance < order_price:
                     errors.append(f"You don't have enough money to complete the order")
                 else:
                     wallet.balance -= order_price
                     wallet.save()
 
                 if errors:
-                    raise OrderException() # Raise custom exception to cause the transaction rollback
+                    raise OrderException()  # Raise custom exception to cause the transaction rollback
         except OrderException as ex:
             pass
 

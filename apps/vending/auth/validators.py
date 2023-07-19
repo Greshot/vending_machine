@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from rest_framework import serializers
 
+
 @dataclass(frozen=True)
 class RegistrationDTO:
     username: str
@@ -8,6 +9,7 @@ class RegistrationDTO:
     password: int
     first_name: str | None = None
     last_name: str | None = None
+
 
 class RegistrationValidator(serializers.Serializer):
     username = serializers.CharField(required=True, max_length=150)

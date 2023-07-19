@@ -6,15 +6,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('vending', '0004_wallet'),
+        ("vending", "0004_wallet"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='wallet',
-            name='balance',
-            field=models.DecimalField(decimal_places=2, default=Decimal('0.00'), max_digits=10, validators=[django.core.validators.MinValueValidator(Decimal('0.00'))]),
+            model_name="wallet",
+            name="balance",
+            field=models.DecimalField(
+                decimal_places=2,
+                default=Decimal("0.00"),
+                max_digits=10,
+                validators=[django.core.validators.MinValueValidator(Decimal("0.00"))],
+            ),
         ),
     ]

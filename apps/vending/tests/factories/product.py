@@ -15,4 +15,3 @@ class ProductFactory(DjangoModelFactory):
     price = Decimal("10.40")
     created_at = datetime(2023, 7, 17, 12)
     updated_at = datetime(2023, 7, 17, 23)
-    

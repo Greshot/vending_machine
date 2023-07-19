@@ -11,8 +11,8 @@ from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_RE
 
 from apps.vending.auth.validators import RegistrationValidator
 
+
 class RegisterUser(APIView):
-    
     def post(self, request: Request):
         validator = RegistrationValidator(data=request.data)
         validator.is_valid(raise_exception=True)
@@ -20,50 +20,46 @@ class RegisterUser(APIView):
 
         try:
             User.objects.create_user(
-                username=request_dto.username, 
-                email=request_dto.email, 
-                password=request_dto.password, 
-                first_name=request_dto.first_name, 
-                last_name=request_dto.last_name
+                username=request_dto.username,
+                email=request_dto.email,
+                password=request_dto.password,
+                first_name=request_dto.first_name,
+                last_name=request_dto.last_name,
             )
         except IntegrityError as ex:
-            message = 'Something went wrong'
-            if 'UNIQUE constraint failed' in str(ex):
-                message = 'Username is already taken. Please use another one'
+            message = "Something went wrong"
+            if "UNIQUE constraint failed" in str(ex):
+                message = "Username is already taken. Please use another one"
 
             return Response(
-                data={
-                    "error": True, 
-                    "message": message
-                }, 
-                status=HTTP_400_BAD_REQUEST
+                data={"error": True, "message": message}, status=HTTP_400_BAD_REQUEST
             )
-        
+
         return Response(
-            data={
-                "error": False, 
-                "message": "User created successfully"
-            }, 
-            status=HTTP_201_CREATED
+            data={"error": False, "message": "User created successfully"},
+            status=HTTP_201_CREATED,
         )
 
-class CustomAuthToken(ObtainAuthToken):
 
+class CustomAuthToken(ObtainAuthToken):
     def post(self, request: Request):
-        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer = self.serializer_class(
+            data=request.data, context={"request": request}
+        )
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
+        user = serializer.validated_data["user"]
         token, created = Token.objects.get_or_create(user=user)
 
         return Response(
             data={
-                'token': token.key,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'email': user.email
+                "token": token.key,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "email": user.email,
             },
-            status=HTTP_201_CREATED
+            status=HTTP_201_CREATED,
         )
+
 
 class Logout(APIView):
     authentication_classes = [TokenAuthentication]

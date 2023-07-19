@@ -13,4 +13,3 @@ class UserFactory(DjangoModelFactory):
     last_name = "FirstName"
     email = "Email"
     password = "Password"
-    

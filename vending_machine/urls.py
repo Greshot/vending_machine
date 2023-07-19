@@ -22,17 +22,27 @@ from apps.vending.auth.views import CustomAuthToken, Logout, RegisterUser
 import apps.vending.views as vending_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('healthcheck/', health_check),
-    path("slots/", include([
-        # path("<uuid:id>", vending_views.MyDetailViewToBeDone.as_view()),
-        path("", vending_views.VendingMachineSlotView.as_view()),
-    ])),
-    path("auth/", include([
-        path("register/", RegisterUser.as_view()),
-        path("login/", CustomAuthToken.as_view()),
-        path("logout/", Logout.as_view()),
-    ])),
+    path("admin/", admin.site.urls),
+    path("healthcheck/", health_check),
+    path(
+        "slots/",
+        include(
+            [
+                # path("<uuid:id>", vending_views.MyDetailViewToBeDone.as_view()),
+                path("", vending_views.VendingMachineSlotView.as_view()),
+            ]
+        ),
+    ),
+    path(
+        "auth/",
+        include(
+            [
+                path("register/", RegisterUser.as_view()),
+                path("login/", CustomAuthToken.as_view()),
+                path("logout/", Logout.as_view()),
+            ]
+        ),
+    ),
     path("wallet/", vending_views.WalletView.as_view()),
-    path("order/", vending_views.OrderView.as_view())
+    path("order/", vending_views.OrderView.as_view()),
 ]
